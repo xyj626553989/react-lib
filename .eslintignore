@@ -4,6 +4,6 @@ dist
 public
 lib
 gulpfile
-ems
+esm
 gulpfile.js
-lib
+dist

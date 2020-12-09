@@ -8,10 +8,13 @@
     "ts-build": "tsc -p tsconfig.build.json",
     "prettier": "prettier src  --write",
     "eslint": "eslint -c .eslintrc.json --ext .ts,.tsx,.js src --fix",
-    "clean": "rimraf esm lib",
+    "clean": "rimraf esm lib dist",
     "gulp-build": "npm run clean  && npm run ts-build && gulp",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "test": "jest",
+    "pre-publish": "npm run test && npm run gulp-build",
+    "publish": "npm publish --registry http://npm-jr.yonghui.cn"
   },
   "keywords": [
     "React",
@@ -20,7 +23,8 @@
   ],
   "files": [
     "lib",
-    "esm"
+    "esm",
+    "dist"
   ],
   "author": "xiongyongjiang",
   "license": "MIT",

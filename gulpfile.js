@@ -14,13 +14,18 @@ const paths = {
     dist: "dist", // umd文件存放的目录名
   },
   styles: "src/components/**/*.less", // 样式文件路径
-  scripts: ["src/components/**/*.{ts,tsx}", "!src/components/**/demo/*.{ts,tsx}",  "!./src/**/*.stories.{tsx,ts}"], // 脚本文件路径
+  scripts: ["./src/**/*.{ts,tsx}",  "!./src/**/*.stories.{tsx,ts}","!./src/setup-test.ts"], // 脚本文件路径
 };
 function cssInjection(content) {
   return content
     .replace(/\/style\/?'/g, "/style/css'")
     .replace(/\/style\/?"/g, "/style/css\"")
     .replace(/\.less/g, ".css");
+}
+
+function compileUmdJS() {
+  const { dest } = paths;
+  return compileScripts("umd", dest.dist);
 }
 function compileCJS() {
   const { dest } = paths;
@@ -81,7 +86,8 @@ function less2css() {
     .pipe(gulp.dest(paths.dest.esm));
 }
 // 并行任务 后续加入样式处理 可以并行处理
-const build = gulp.parallel(compileCJS, compileESM, copyLess, less2css);
+const build = gulp.series(gulp.parallel(compileCJS, copyLess, less2css),gulp.parallel( compileESM, copyLess, less2css),gulp.parallel(compileUmdJS, copyLess, less2css))
+// const build = gulp.parallel(compileCJS, compileESM,compileUmdJS, copyLess, less2css);
 
 exports.build = build;
 exports.default = build;
