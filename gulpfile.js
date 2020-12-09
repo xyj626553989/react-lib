@@ -47,7 +47,6 @@ function compileScripts(babelEnv, destDir) {
   const { scripts } = paths;
   // 设置环境变量
   process.env.BABEL_ENV = babelEnv;
-  console.log(process.env.BABEL_ENV)
   return gulp
     .src(scripts)
     .pipe(babel()) // 使用gulp-babel处理
