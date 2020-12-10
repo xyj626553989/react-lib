@@ -36,6 +36,7 @@ module.exports = {
     "react/jsx-props-no-spreading": 0,
     "react/button-has-type": 0,
     "import/no-extraneous-dependencies": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
   },
   globals: {
     document: true,
