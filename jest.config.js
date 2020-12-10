@@ -21,7 +21,7 @@ module.exports = {
 
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
-  setupFilesAfterEnv: ["<rootDir>/src/setup-test.ts"],
+  setupFilesAfterEnv: ["<rootDir>/setup-test.ts"],
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
   //   "\\\\node_modules\\\\"

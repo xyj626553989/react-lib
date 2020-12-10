@@ -13,8 +13,8 @@ const paths = {
     esm: "esm", // ES module 文件存放的目录名 - 暂时不关心
     dist: "dist", // umd文件存放的目录名
   },
-  styles: "src/components/**/*.less", // 样式文件路径
-  scripts: ["./src/**/*.{ts,tsx}",  "!./src/**/*.stories.{tsx,ts}","!./src/setup-test.ts"], // 脚本文件路径
+  styles: "components/**/*.less", // 样式文件路径
+  scripts: ["components/**/*.{tsx,ts}",  "!**/*.stories.{tsx,ts}","!setup-test.ts"], // 脚本文件路径
 };
 function cssInjection(content) {
   return content
@@ -72,7 +72,7 @@ function compileScripts(babelEnv, destDir) {
  * 拷贝less文件
  */
 function copyLess() {
-  return gulp.src(paths.styles).pipe(gulp.dest(paths.dest.lib)).pipe(gulp.dest(paths.dest.esm));
+  return gulp.src(paths.styles).pipe(gulp.dest(paths.dest.lib)).pipe(gulp.dest(paths.dest.esm)).pipe(gulp.dest(paths.dest.dist));
 }
 
 function less2css() {
@@ -82,11 +82,21 @@ function less2css() {
     .pipe(postcss([autoprefixer()])) // 根据browserslistrc增加前缀
     .pipe(cssnano({ zindex: false, reduceIdents: false })) // 压缩
     .pipe(gulp.dest(paths.dest.lib))
-    .pipe(gulp.dest(paths.dest.esm));
+    .pipe(gulp.dest(paths.dest.esm))
+    .pipe(gulp.dest(paths.dest.dist));
 }
 // 并行任务 后续加入样式处理 可以并行处理
-const build = gulp.series(gulp.parallel(compileCJS, copyLess, less2css),gulp.parallel( compileESM, copyLess, less2css),gulp.parallel(compileUmdJS, copyLess, less2css))
-// const build = gulp.parallel(compileCJS, compileESM,compileUmdJS, copyLess, less2css);
-
+const buildScripts = gulp.series(
+  compileUmdJS,compileESM,compileCJS)
+// 整体并行执行任务
+const build = gulp.parallel(buildScripts,copyLess,less2css);
 exports.build = build;
 exports.default = build;
+
+
+
+
+// return gulp
+// .src(scripts)
+// .pipe(babel()) // 使用gulp-babel处理
+// .pipe(gulp.dest(destDir));
