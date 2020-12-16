@@ -1,6 +1,6 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-recess-order"],
   "rules": {
-    "at-rule-no-unknown": [true, { "ignoreAtRules": ["mixin", "extend", "content"] }]
+    "at-rule-no-unknown": [true, { "ignoreAtRules": ["lighten", "hsl"] }]
   }
 }

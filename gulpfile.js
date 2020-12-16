@@ -5,6 +5,7 @@ const less = require("gulp-less");
 const autoprefixer = require("autoprefixer");
 const postcss = require("gulp-postcss");
 const cssnano = require("gulp-cssnano");
+// const uglify = require('gulp-uglify');  //加载js压缩
 const through2 = require("through2");
 
 const paths = {
@@ -14,7 +15,7 @@ const paths = {
     dist: "dist", // umd文件存放的目录名
   },
   styles: "components/**/*.less", // 样式文件路径
-  scripts: ["components/**/*.{tsx,ts}",  "!**/*.stories.{tsx,ts}","!setup-test.ts"], // 脚本文件路径
+  scripts: ["components/**/*.{tsx,ts}", "!components/**/*.test.{tsx,ts}", "!**/*.stories.{tsx,ts}","!setup-test.ts"], // 脚本文件路径
 };
 function cssInjection(content) {
   return content
@@ -50,6 +51,7 @@ function compileScripts(babelEnv, destDir) {
   return gulp
     .src(scripts)
     .pipe(babel()) // 使用gulp-babel处理
+    // .pipe(uglify())
     .pipe(
       through2.obj(function (file, encoding, next) {
         this.push(file.clone());
