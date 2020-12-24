@@ -25,7 +25,7 @@ describe("test Button Component", () => {
     const element = createElement({ type: "default" });
     expect(element).toHaveClass("yh-button-default");
   });
-  it("should render the disabled props and disabled is not can be click", () => {
+  it("should render the disabled props and disabled can not click", () => {
     const element = createElement({ disabled: true, onClick: fn });
     expect(element).toHaveClass("yh-button-disabled");
     expect(fn).not.toHaveBeenCalled();

@@ -22,10 +22,10 @@ module.exports = {
   plugins: ["react", "@typescript-eslint"],
   rules: {
     "react/jsx-filename-extension": ["error", { extensions: [".js", ".jsx", ".ts", ".tsx"] }],
-    indent: ["error", 2],
-    quotes: ["error", "double"],
-    semi: ["error", "always"],
-    "no-console": "error",
+    // indent: ["error", 2],
+    // quotes: ["error", "double"],
+    // semi: ["error", "always"],
+    "no-console": 0,
     "arrow-parens": 0,
     "no-use-before-define": 0,
     "import/extensions": 0,
@@ -37,6 +37,7 @@ module.exports = {
     "react/button-has-type": 0,
     "import/no-extraneous-dependencies": 0,
     "jsx-a11y/click-events-have-key-events": 0,
+    "no-param-reassign": 0,
   },
   globals: {
     document: true,
